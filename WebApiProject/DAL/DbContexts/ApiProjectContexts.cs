@@ -5,11 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Models.Entities;
+using Microsoft.Extensions.Configuration;
 
 namespace DAL.DbContexts
 {
     public class ApiProjectContexts:DbContext
     {
+        private IConfiguration _configuration;
+        public ApiProjectContexts(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Customer> Customers { get; set; }
@@ -17,7 +24,10 @@ namespace DAL.DbContexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            base.OnConfiguring(optionsBuilder.UseSqlServer("Server=LAPTOP-JLHG2RJG;Database=WebProject;Trusted_Connection=True;"));
+            var connectionString = _configuration.GetConnectionString("MsComm");
+            base.OnConfiguring(optionsBuilder.UseSqlServer(connectionString));
+           
+
         }
     }
 }

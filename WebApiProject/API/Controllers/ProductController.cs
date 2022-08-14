@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using DTO.Product;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.Entities;
@@ -11,6 +12,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class ProductController : ControllerBase
     {
         private readonly IProductService _service;
@@ -28,14 +30,14 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(Product product)
+        public IActionResult Post(CreateProductRequest product)
         {
             var response = _service.Insert(product);
             return Ok(response);
         }
 
         [HttpPut]
-        public IActionResult Put(Product product)
+        public IActionResult Put(UpdateProductRequest product)
         {
             var response = _service.Update(product);
             return Ok(response);

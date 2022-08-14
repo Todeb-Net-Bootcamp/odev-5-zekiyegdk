@@ -42,5 +42,9 @@ namespace DAL.Concrete
             contexts.Products.Remove(product);
             contexts.SaveChanges();
         }
+        public Product Get(int id)
+        {
+            return contexts.Products.FirstOrDefault(x => x.Id == id);
+        }
     }
 }

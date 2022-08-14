@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Configuration.Response;
+using DTO.Product;
 using Models.Entities;
 
 
@@ -12,8 +13,8 @@ namespace Business.Abstract
     public interface IProductService
     {
         public IEnumerable<Product> GetAll();
-        public CommandResponse Insert(Product product);
-        public CommandResponse Update(Product product);
+        public CommandResponse Insert(CreateProductRequest request);
+        public CommandResponse Update(UpdateProductRequest request);
         public CommandResponse Delete(Product product);
     }
 }

@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\WebApiProject",
-    "\\WebApiProject\\DAL"
+    "\\WebApiProject\\API",
+    "\\WebApiProject\\API\\Properties",
+    "\\WebApiProject\\Business"
   ],
-  "SelectedNode": "\\WebApiProject\\DAL\\DAL.csproj",
+  "SelectedNode": "\\WebApiProject\\WebApiProject.sln",
   "PreviewInSolutionExplorer": false
 }

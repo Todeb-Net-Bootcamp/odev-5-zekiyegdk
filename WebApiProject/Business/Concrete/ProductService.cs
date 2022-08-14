@@ -7,15 +7,22 @@ using System.Threading.Tasks;
 using Models.Entities;
 using Business.Configuration.Response;
 using DAL.Abstract;
+using DTO.Product;
+using Business.Configuration.Validator.FluentValidation;
+using Business.Configuration.Extensions;
+using AutoMapper;
 
 namespace Business.Concrete
 {
     public class ProductService : IProductService
     {
         private readonly IProductRepository _repository;
-        public ProductService(IProductRepository repository)
+        private IMapper _mapper;
+
+        public ProductService(IProductRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
 
         }
 
@@ -24,29 +31,59 @@ namespace Business.Concrete
             return _repository.GetAll();
         }
 
-        public CommandResponse Insert(Product product)
+        public CommandResponse Insert(CreateProductRequest request)
         {
-            _repository.Insert(product);
+            //Validation
+            var validator = new CreateProductRequestValidator();
+            validator.Validate(request).ThrowIfException();
+
+
+            var entity = _mapper.Map<Product>(request);
+            _repository.Insert(entity);
 
             return new CommandResponse
             {
                 Status = true,
-                Message = $"Ürün eklendi. Id={product.Id}"
+                Message = $"Ürün eklendi."
             };
         }
 
-        public CommandResponse Update(Product product)
+        public CommandResponse Update(UpdateProductRequest request)
         {
+            var validator = new UpdateProductRequestValidator();
+            validator.Validate(request).ThrowIfException();
+
+            var entity = _repository.Get(request.Id);
+            if(entity == null)
+            {
+                return new CommandResponse()
+                {
+                    Status = false,
+                    Message = "Kayıt bulunamadı."
+                };
+            }
+
+            var mapped = _mapper.Map(request,entity);
+
+            _repository.Update(mapped);
+
             return new CommandResponse
             {
                 Status = true,
-                Message = $"Ürün güncellendi. Id={product.Id}"
+                Message = $"Ürün güncellendi."
             };
         }
         public CommandResponse Delete(Product product)
         {
             _repository.Delete(product);
 
+            return new CommandResponse
+            {
+                Status = true,
+                Message = $"Ürün silindi. Id={product.Id}"
+            };
+
         }
     }
 }
+

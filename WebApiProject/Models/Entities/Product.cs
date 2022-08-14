@@ -13,7 +13,12 @@ namespace Models.Entities
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+        public string ProductDetail { get; set; }
         public decimal UnitPrice { get; set; }
+        public int UnitInStock { get; set; }
+        public int UnitsOnOrder { get; set; }
+        public string QuantityPerUnit { get; set; }
+
         public int CategoryID { get; set; }
 
 

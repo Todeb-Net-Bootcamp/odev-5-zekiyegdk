@@ -1,3 +1,9 @@
+using Business.Abstract;
+using Business.Concrete;
+using Business.Configuration.Mapper;
+using DAL.Abstract;
+using DAL.Concrete;
+using DAL.DbContexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +32,15 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddDbContext<ApiProjectContexts>(ServiceLifetime.Transient);
+            services.AddAutoMapper(config =>
+            {
+                config.AddProfile(new MapperProfile());
+            });
+
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+             
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
