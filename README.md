@@ -1,13 +1,11 @@
 # odev-5
 
-1- Business, Presentation( Yani Web Api), Dto katmanlarını oluşturacağız 
+1- Business, Presentation, Dto katmanları mevcut.
 
-2- FluentValidation ve AutoMapper implementasyonu yapılacak ve odevde bunları kullanacağız 
+2- FluentValidation ve AutoMapper implementasyonu yapılmaktadır.
 
-3- Startup dosyası uygun şekilde düzenlenecek 
+3- Proje swagger üzerinden istek atılabilir.
 
-4- Proje swagger üzerinden istek atılabilir hale gelsin 
 
-NOT: CRUD işlemleri de kullanılacaktı (Yanlış hatırlıyorsam düzeltin lütfen)
 
-# Son Teslim Tarihi: 29 Temmuz Cuma saat 23.00
+
